@@ -1,5 +1,5 @@
 #import <QuartzCore/QuartzCore.h>
-#import <PHFDelegateChain/PHFDelegateChain.h>
+#import "PHFDelegateChain.h"
 #import "PHFComposeBarView.h"
 #import "PHFComposeBarView_TextView.h"
 #import "PHFComposeBarView_Button.h"
@@ -73,14 +73,6 @@ static CGFloat kTextViewToSuperviewHeightDelta;
     [self setup];
 
     return self;
-}
-
-- (void)awakeFromNib
-{
-  [super awakeFromNib];
-
-  [self calculateRuntimeConstants];
-  [self setup];
 }
 
 - (BOOL)becomeFirstResponder {
@@ -616,10 +608,19 @@ static CGFloat kTextViewToSuperviewHeightDelta;
     [self resizeButton];
 }
 
+// CUSTOM: the original version of this call caused crashes when VoiceOver was on
+// see https://github.com/fphilipe/PHFComposeBarView/issues/41
+//
+//- (void)setupDelegateChainForTextView {
+//    PHFDelegateChain *delegateChain = [PHFDelegateChain delegateChainWithObjects:self, [self delegate], nil];
+//    [self setDelegateChain:delegateChain];
+//    [[self textView] setDelegate:(id<UITextViewDelegate>)delegateChain];
+//}
+
 - (void)setupDelegateChainForTextView {
-    PHFDelegateChain *delegateChain = [PHFDelegateChain delegateChainWithObjects:self, [self delegate], nil];
+    PHFDelegateChain *delegateChain = [PHFDelegateChain delegateChainWithObjects: [self delegate], nil];
     [self setDelegateChain:delegateChain];
-    [[self textView] setDelegate:(id<UITextViewDelegate>)delegateChain];
+    [[self textView] setDelegate:self];
 }
 
 - (CGFloat)textHeight {
