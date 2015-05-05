@@ -121,6 +121,10 @@ static CGFloat kTextViewToSuperviewHeightDelta;
 
 - (void)textViewDidChange:(UITextView *)textView {
     [self handleTextViewChangeAnimated:NO];
+
+    if ([self.delegate respondsToSelector:@selector(textViewDidChange:)]) {
+        [self.delegate textViewDidChange:textView];
+    }
 }
 
 #pragma mark - Public Properties
