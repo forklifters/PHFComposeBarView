@@ -127,6 +127,13 @@ static CGFloat kTextViewToSuperviewHeightDelta;
     }
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([self.delegate respondsToSelector:@selector(textView:shouldChangeTextInRange:replacementText:)]) {
+        [self.delegate textView:textView shouldChangeTextInRange:range replacementText:text];
+    }
+    return YES;
+}
+
 #pragma mark - Public Properties
 
 - (void)setAutoAdjustTopOffset:(BOOL)autoAdjustTopOffset {
