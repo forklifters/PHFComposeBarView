@@ -53,7 +53,6 @@ static CGFloat kTextViewToSuperviewHeightDelta;
 
 
 @interface PHFComposeBarView ()
-@property (strong, nonatomic, readonly) UIToolbar *backgroundView;
 @property (strong, nonatomic, readonly) UIView *topLineView;
 @property (strong, nonatomic, readonly) UILabel *charCountLabel;
 @property (strong, nonatomic) PHFDelegateChain *delegateChain;
