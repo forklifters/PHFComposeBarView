@@ -133,6 +133,12 @@ static CGFloat kTextViewToSuperviewHeightDelta;
     return YES;
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)]) {
+        [self.delegate textViewDidBeginEditing:textView];
+    }
+}
+
 #pragma mark - Public Properties
 
 - (void)setAutoAdjustTopOffset:(BOOL)autoAdjustTopOffset {
